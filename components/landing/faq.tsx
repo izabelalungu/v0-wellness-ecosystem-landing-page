@@ -7,55 +7,55 @@ import {
 
 const faqs = [
   {
-    question: "What is STAI DREPT?",
-    answer: "STAI DREPT is an integrated wellness ecosystem that combines fitness training, postural recovery, nutrition services, and a digital platform. We offer both onsite and online services, including AI-powered posture evaluations, personalized workout programs, physiotherapy, nutritional meals, and a comprehensive dashboard to track your progress.",
+    question: "Ce este STAI DREPT?",
+    answer: "STAI DREPT este un ecosistem integrat de wellness care combină antrenament în sală, recuperare posturală (fizioterapie, kinetoterapie, masaj), nutriție și o platformă digitală pentru gestionarea progresului. Oferim și evaluare posturală online prin inteligență artificială.",
   },
   {
-    question: "Is STAI DREPT available online or only onsite?",
-    answer: "Both! We offer a full onsite experience at our wellness center, including gym access, physiotherapy sessions, massage, and meal pickup. We also provide comprehensive online services including AI posture evaluation, digital workout programs, nutrition planning, and full platform access for tracking and management.",
+    question: "Serviciile sunt disponibile doar la centru sau și online?",
+    answer: "Ambele. La centru oferim acces la sală, ședințe de fizioterapie, masaj, saună și ridicare mese. Online ai acces la evaluarea posturală AI, programe de antrenament digitale, planificare nutrițională și întreaga platformă pentru monitorizarea progresului.",
   },
   {
-    question: "Who is STAI DREPT for?",
-    answer: "Our services are designed for adults experiencing posture issues, chronic back or neck pain, those with sedentary lifestyles, office workers, and anyone interested in improving their overall wellness, fitness, and body alignment. Whether you're recovering from injury or looking to optimize your health, our programs adapt to your needs.",
+    question: "Pentru cine sunt potrivite serviciile?",
+    answer: "Serviciile noastre sunt destinate adulților cu probleme de postură, dureri cronice de spate sau gât, persoanelor cu stil de viață sedentar, angajaților de birou și oricui dorește să-și îmbunătățească postura și starea de sănătate generală.",
   },
   {
-    question: "How does the AI posture evaluation work?",
-    answer: "Our AI posture evaluation uses advanced computer vision technology to analyze your posture through your device camera. The assessment takes under 3 minutes and provides detailed insights about your alignment, potential imbalances, and areas that need attention. Based on the results, you receive a personalized improvement plan.",
+    question: "Cum funcționează evaluarea posturală AI?",
+    answer: "Evaluarea folosește tehnologie de computer vision pentru a analiza postura ta prin camera dispozitivului. Durează mai puțin de 3 minute și oferă informații detaliate despre alinierea corpului, dezechilibre și zone care necesită atenție, plus recomandări personalizate.",
   },
   {
-    question: "How does the nutrition program work?",
-    answer: "Our nutrition program provides fresh, balanced meals prepared by nutrition experts. You can choose from flexible scheduling options, with meals available for delivery or onsite pickup. Monthly menus are designed to support your wellness goals, with options to accommodate dietary preferences and requirements.",
+    question: "Cum funcționează programul de nutriție?",
+    answer: "Oferim mese proaspete și echilibrate preparate de specialiști. Poți alege între livrare la domiciliu sau ridicare de la centru. Meniurile sunt adaptate obiectivelor tale de wellness și pot respecta diverse restricții sau preferințe alimentare.",
   },
   {
-    question: "What does the digital platform include?",
-    answer: "The STAI DREPT platform is your personal wellness dashboard. It includes workout tracking, subscription management, meal planning and ordering, progress charts and analytics, session scheduling, payment management, and access to your personalized programs. Everything syncs together for a seamless experience.",
+    question: "Ce include platforma digitală?",
+    answer: "Platforma STAI DREPT este dashboard-ul tău personal de wellness. Include urmărirea antrenamentelor, gestionarea abonamentelor, planificarea și comanda meselor, grafice de progres, programarea ședințelor, administrarea plăților și acces la programele tale personalizate.",
   },
 ]
 
 export function FAQ() {
   return (
-    <section id="faq" className="py-20 lg:py-32 bg-muted/30">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-foreground">
-            Frequently asked questions
+    <section id="faq" className="py-16 lg:py-24 bg-muted/20">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-foreground">
+            Întrebări frecvente
           </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Everything you need to know about STAI DREPT and our services.
+          <p className="text-muted-foreground leading-relaxed">
+            Informații utile despre STAI DREPT și serviciile noastre.
           </p>
         </div>
 
-        <Accordion type="single" collapsible className="space-y-4">
+        <Accordion type="single" collapsible className="space-y-3">
           {faqs.map((faq, index) => (
             <AccordionItem 
               key={index} 
               value={`item-${index}`}
-              className="bg-card border border-border rounded-xl px-6 data-[state=open]:shadow-lg transition-shadow"
+              className="bg-card border border-border rounded-lg px-5 data-[state=open]:border-primary/30"
             >
-              <AccordionTrigger className="text-left font-semibold text-foreground hover:text-accent hover:no-underline py-6">
+              <AccordionTrigger className="text-left font-medium text-foreground hover:text-primary hover:no-underline py-5 text-sm">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground pb-6 leading-relaxed">
+              <AccordionContent className="text-muted-foreground pb-5 text-sm leading-relaxed">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>

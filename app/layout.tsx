@@ -14,18 +14,18 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'STAI DREPT | Posture, Recovery & Wellness Ecosystem',
-  description: 'Transform your posture and wellbeing with STAI DREPT. An integrated ecosystem combining gym training, postural recovery, nutrition, and AI-powered assessments.',
-  keywords: ['posture correction', 'wellness', 'physiotherapy', 'nutrition', 'fitness', 'postural recovery', 'AI posture evaluation'],
+  title: 'STAI DREPT | Recuperare Posturală, Fitness și Wellness',
+  description: 'Ecosistem integrat de wellness care combină antrenament, recuperare posturală, nutriție și evaluare posturală prin inteligență artificială.',
+  keywords: ['postură', 'recuperare posturală', 'fizioterapie', 'kinetoterapie', 'nutriție', 'fitness', 'evaluare posturală AI'],
   openGraph: {
-    title: 'STAI DREPT | Posture, Recovery & Wellness Ecosystem',
-    description: 'Transform your posture and wellbeing with our integrated wellness ecosystem.',
+    title: 'STAI DREPT | Recuperare Posturală, Fitness și Wellness',
+    description: 'Ecosistem integrat pentru îmbunătățirea posturii și a sănătății.',
     type: 'website',
   },
 }
 
 export const viewport: Viewport = {
-  themeColor: '#1a1a1a',
+  themeColor: '#CE1111',
   width: 'device-width',
   initialScale: 1,
 }
@@ -36,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="ro" className={`${inter.variable} ${playfair.variable}`}>
       <body className="font-sans antialiased">
         {children}
         <Analytics />

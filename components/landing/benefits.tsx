@@ -1,58 +1,58 @@
-import { CheckCircle2 } from "lucide-react"
+import { Check } from "lucide-react"
 
 const benefits = [
   {
-    title: "Improved Posture",
-    description: "Correct alignment issues and develop proper posture habits that last a lifetime.",
+    title: "Îmbunătățirea posturii",
+    description: "Corectarea dezaliniamentelor și dezvoltarea obiceiurilor corecte de postură.",
   },
   {
-    title: "Reduced Pain",
-    description: "Eliminate chronic back, neck, and joint pain through targeted recovery programs.",
+    title: "Reducerea durerii de spate",
+    description: "Eliminarea durerilor cronice de spate, gât și articulații prin programe țintite.",
   },
   {
-    title: "Better Movement",
-    description: "Enhance mobility, flexibility, and overall movement quality in your daily life.",
+    title: "Mobilitate mai bună",
+    description: "Creșterea flexibilității și îmbunătățirea calității mișcării zilnice.",
   },
   {
-    title: "Increased Confidence",
-    description: "Stand taller and feel more confident with improved body awareness and alignment.",
+    title: "Echilibru corporal",
+    description: "Restabilirea echilibrului muscular și a simetriei corporale.",
   },
   {
-    title: "Recovery Support",
-    description: "Access professional support for injury recovery and performance optimization.",
+    title: "Performanță fizică",
+    description: "Optimizarea performanței în activitățile zilnice și sportive.",
   },
   {
-    title: "Measurable Progress",
-    description: "Track your transformation with data-driven insights and regular assessments.",
+    title: "Progres măsurabil",
+    description: "Monitorizarea evoluției cu date concrete și evaluări periodice.",
   },
 ]
 
 export function Benefits() {
   return (
-    <section className="py-20 lg:py-32 bg-primary text-primary-foreground">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-            Transform your body, transform your life
+    <section className="py-16 lg:py-24 bg-foreground text-background">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
+            Rezultate reale, îmbunătățiri durabile
           </h2>
-          <p className="text-lg text-primary-foreground/80 leading-relaxed">
-            Experience lasting improvements in posture, mobility, and overall wellbeing 
-            with our comprehensive approach to wellness.
+          <p className="text-background/70 leading-relaxed">
+            Abordarea noastră integrată aduce beneficii concrete pentru 
+            postura, mobilitatea și sănătatea ta generală.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {benefits.map((benefit, index) => (
             <div 
               key={index} 
-              className="flex items-start gap-4 p-6 rounded-2xl bg-primary-foreground/5 backdrop-blur border border-primary-foreground/10"
+              className="flex items-start gap-4 p-5 rounded-lg border border-background/10 bg-background/5"
             >
-              <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center shrink-0">
-                <CheckCircle2 className="w-5 h-5 text-accent-foreground" />
+              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
+                <Check className="w-4 h-4 text-primary-foreground" />
               </div>
               <div>
-                <h3 className="font-semibold text-xl mb-2">{benefit.title}</h3>
-                <p className="text-primary-foreground/70 leading-relaxed">{benefit.description}</p>
+                <h3 className="font-semibold text-lg mb-1">{benefit.title}</h3>
+                <p className="text-sm text-background/60 leading-relaxed">{benefit.description}</p>
               </div>
             </div>
           ))}

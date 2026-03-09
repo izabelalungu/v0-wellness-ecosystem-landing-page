@@ -1,59 +1,54 @@
-import { Card, CardContent } from "@/components/ui/card"
 import { Dumbbell, Stethoscope, Salad, LayoutDashboard } from "lucide-react"
 
 const pillars = [
   {
     icon: Dumbbell,
-    title: "Fitness Training",
-    description: "Personalized workout programs designed by certified trainers to build strength, mobility, and endurance.",
-    color: "bg-accent/10 text-accent",
+    title: "Gym Program",
+    description: "Antrenamente personalizate ghidate de antrenori certificați pentru forță, mobilitate și postură corectă.",
   },
   {
     icon: Stethoscope,
-    title: "Postural Recovery",
-    description: "Physiotherapy, kinesiotherapy, and targeted treatments to correct posture and eliminate chronic pain.",
-    color: "bg-accent/10 text-accent",
+    title: "Recuperare Posturală",
+    description: "Fizioterapie, kinetoterapie și masaj terapeutic pentru corectarea dezechilibrelor și reducerea durerii.",
   },
   {
     icon: Salad,
-    title: "Nutrition",
-    description: "Fresh, balanced meals with flexible scheduling and personalized meal plans delivered to your door.",
-    color: "bg-accent/10 text-accent",
+    title: "Nutriție",
+    description: "Mese proaspete și echilibrate, planuri nutriționale personalizate cu livrare sau ridicare de la centru.",
   },
   {
     icon: LayoutDashboard,
-    title: "Digital Platform",
-    description: "Track your progress, manage subscriptions, access workouts, and monitor your transformation journey.",
-    color: "bg-accent/10 text-accent",
+    title: "Platformă Digitală",
+    description: "Dashboard personal pentru urmărirea progresului, gestionarea programelor și a abonamentelor.",
   },
 ]
 
 export function WhatIsStaiDrept() {
   return (
-    <section id="about" className="py-20 lg:py-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-foreground">
-            One ecosystem for complete wellness
+    <section id="despre" className="py-16 lg:py-24">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-foreground">
+            Un ecosistem complet pentru sănătatea ta
           </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            STAI DREPT brings together everything you need to transform your posture, health, and lifestyle. 
-            From expert-led training to AI-powered assessments, experience an integrated approach to wellness 
-            that adapts to your unique needs.
+          <p className="text-muted-foreground leading-relaxed">
+            STAI DREPT reunește toate serviciile de care ai nevoie pentru îmbunătățirea 
+            posturii și a sănătății într-o singură experiență integrată.
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {pillars.map((pillar, index) => (
-            <Card key={index} className="border-border bg-card hover:shadow-lg transition-shadow duration-300 group">
-              <CardContent className="p-6">
-                <div className={`w-14 h-14 rounded-2xl ${pillar.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <pillar.icon className="w-7 h-7" />
-                </div>
-                <h3 className="font-semibold text-xl mb-3 text-card-foreground">{pillar.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{pillar.description}</p>
-              </CardContent>
-            </Card>
+            <div 
+              key={index} 
+              className="bg-card border border-border rounded-lg p-6 hover:border-primary/30 transition-colors"
+            >
+              <div className="w-10 h-10 rounded-md bg-muted flex items-center justify-center mb-4">
+                <pillar.icon className="w-5 h-5 text-primary" />
+              </div>
+              <h3 className="font-semibold text-lg mb-2 text-foreground">{pillar.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{pillar.description}</p>
+            </div>
           ))}
         </div>
       </div>
