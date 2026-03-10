@@ -1,16 +1,11 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const inter = Inter({ 
+const montserrat = Montserrat({ 
   subsets: ["latin"],
-  variable: '--font-inter'
-});
-
-const playfair = Playfair_Display({ 
-  subsets: ["latin"],
-  variable: '--font-playfair'
+  variable: '--font-sans'
 });
 
 export const metadata: Metadata = {
@@ -36,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ro" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="ro" className={montserrat.variable}>
       <body className="font-sans antialiased">
         {children}
         <Analytics />

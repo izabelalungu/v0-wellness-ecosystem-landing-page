@@ -40,7 +40,7 @@ export function AIPostureEvaluation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div 
-          className="text-center max-w-2xl mx-auto mb-16"
+          className="max-w-2xl mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -198,9 +198,6 @@ export function AIPostureEvaluation() {
                 Începe evaluarea gratuită
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
-              <p className="text-xs text-muted-foreground mt-3">
-                Fără cont necesar. Rezultate în mai puțin de 3 minute.
-              </p>
             </div>
           </motion.div>
         </div>

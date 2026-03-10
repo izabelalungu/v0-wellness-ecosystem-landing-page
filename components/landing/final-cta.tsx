@@ -39,16 +39,12 @@ export function FinalCTA() {
           <Button 
             size="lg" 
             variant="outline" 
-            className="h-14 px-8 text-base border-background/20 text-background hover:bg-background/10 hover:text-background"
+            className="h-14 px-8 text-base border-background/20 text-foreground hover:bg-background/10"
           >
             <MapPin className="w-4 h-4 mr-2" />
             Vizitează centrul
           </Button>
         </div>
-
-        <p className="mt-8 text-sm text-background/50">
-          Fără cont necesar. Rezultate în mai puțin de 3 minute. Fără obligații.
-        </p>
       </motion.div>
     </section>
   )

@@ -52,7 +52,7 @@ export function ServicesOverview() {
     <section id="servicii" className="py-20 lg:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
-          className="text-center max-w-2xl mx-auto mb-16"
+          className="max-w-2xl mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -70,7 +70,7 @@ export function ServicesOverview() {
           {services.map((service, index) => (
             <motion.div 
               key={index} 
-              className={`group bg-card border border-border rounded-2xl p-6 lg:p-8 transition-all duration-300 ${service.borderColor}`}
+              className={`group bg-card border border-border rounded-2xl p-6 lg:p-8 transition-all duration-300 ${service.borderColor} flex flex-col h-full`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -96,8 +96,8 @@ export function ServicesOverview() {
                 </div>
               </div>
               
-              <h3 className="font-bold text-xl mb-2 text-foreground">{service.title}</h3>
-              <p className="text-muted-foreground leading-relaxed mb-5">{service.description}</p>
+              <h3 className="font-bold text-lg mb-2 text-foreground">{service.title}</h3>
+              <p className="text-muted-foreground leading-relaxed mb-5 flex-grow">{service.description}</p>
               
               <div className="flex flex-wrap gap-2 mb-6">
                 {service.features.map((feature, featureIndex) => (
@@ -110,7 +110,7 @@ export function ServicesOverview() {
                 ))}
               </div>
 
-              <Button variant="ghost" size="sm" className="p-0 h-auto text-foreground hover:text-primary hover:bg-transparent group-hover:translate-x-1 transition-transform">
+              <Button variant="ghost" size="sm" className="p-0 h-auto text-foreground hover:text-primary hover:bg-transparent group-hover:translate-x-1 transition-transform mt-auto">
                 Află mai multe
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>

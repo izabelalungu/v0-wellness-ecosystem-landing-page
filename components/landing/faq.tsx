@@ -38,9 +38,9 @@ const faqs = [
 export function FAQ() {
   return (
     <section id="faq" className="py-20 lg:py-28">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
-          className="text-center mb-12"
+          className="text-left max-w-2xl mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -58,6 +58,7 @@ export function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
+          className="max-w-3xl"
         >
           <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, index) => (
@@ -78,7 +79,7 @@ export function FAQ() {
         </motion.div>
 
         <motion.p 
-          className="text-center text-sm text-muted-foreground mt-10"
+          className="text-sm text-muted-foreground mt-10"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

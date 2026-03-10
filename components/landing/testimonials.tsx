@@ -43,7 +43,7 @@ export function Testimonials() {
     <section className="py-20 lg:py-28 bg-muted/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
-          className="text-center max-w-2xl mx-auto mb-16"
+          className="max-w-2xl mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -61,7 +61,7 @@ export function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <motion.div 
               key={index} 
-              className="bg-card border border-border rounded-2xl p-6 lg:p-8 relative"
+              className="bg-card border border-border rounded-2xl p-6 lg:p-8 relative flex flex-col h-full"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -70,35 +70,29 @@ export function Testimonials() {
               {/* Quote icon */}
               <Quote className="absolute top-6 right-6 w-8 h-8 text-muted-foreground/10" />
               
-              {/* Rating and improvement */}
-              <div className="flex items-center justify-between mb-5">
-                <div className="flex gap-0.5">
-                  {Array.from({ length: testimonial.rating }).map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-primary text-primary" />
-                  ))}
-                </div>
-                <span className="text-xs font-medium text-primary bg-primary/10 px-2.5 py-1 rounded-full">
-                  {testimonial.improvement}
-                </span>
+              {/* Rating */}
+              <div className="flex gap-0.5 mb-5">
+                {Array.from({ length: testimonial.rating }).map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                ))}
               </div>
               
               {/* Quote */}
-              <p className="text-muted-foreground leading-relaxed mb-6">
+              <p className="text-muted-foreground leading-relaxed mb-6 flex-grow">
                 &quot;{testimonial.content}&quot;
               </p>
               
               {/* Author */}
               <div className="flex items-center gap-4 pt-5 border-t border-border">
-                <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
-                  <span className="font-semibold text-foreground">
+                <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center shrink-0">
+                  <span className="font-semibold text-foreground text-sm">
                     {testimonial.name.split(' ').map(n => n[0]).join('')}
                   </span>
                 </div>
-                <div className="flex-1">
-                  <p className="font-semibold text-foreground">{testimonial.name}</p>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-foreground text-sm">{testimonial.name}</p>
+                  <p className="text-xs text-muted-foreground">{testimonial.role}</p>
                 </div>
-                <span className="text-xs text-muted-foreground">{testimonial.duration}</span>
               </div>
             </motion.div>
           ))}
