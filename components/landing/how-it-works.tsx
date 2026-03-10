@@ -1,64 +1,103 @@
-import { Scan, FileText, Activity, BarChart3 } from "lucide-react"
+"use client"
+
+import { motion } from "framer-motion"
+import { Scan, FileCheck, Activity, BarChart3, ArrowRight } from "lucide-react"
 
 const steps = [
   {
     icon: Scan,
     step: "01",
-    title: "Evaluare",
-    description: "Începe cu evaluarea posturală AI pentru a identifica nevoile tale specifice.",
+    title: "Evaluare AI",
+    description: "Începi cu evaluarea posturală prin camera dispozitivului. Identificăm dezechilibre și zone care necesită atenție.",
+    highlight: "Online, gratuit",
   },
   {
-    icon: FileText,
+    icon: FileCheck,
     step: "02",
-    title: "Plan personalizat",
-    description: "Primești un program adaptat care combină fitness, recuperare și nutriție.",
+    title: "Analiză și recomandări",
+    description: "Primești un raport detaliat cu puncte slabe, riscuri și recomandări personalizate pentru programul tău.",
+    highlight: "Rezultate instant",
   },
   {
     icon: Activity,
     step: "03",
-    title: "Antrenament și recuperare",
-    description: "Lucrezi cu specialiștii noștri în ședințe ghidate și sesiuni de recuperare.",
+    title: "Program personalizat",
+    description: "Lucrezi cu echipa noastră în ședințe de antrenament, recuperare și consultanță nutrițională.",
+    highlight: "Onsite sau online",
   },
   {
     icon: BarChart3,
     step: "04",
-    title: "Monitorizare progres",
-    description: "Urmărești evoluția prin analize detaliate și evaluări periodice pe platformă.",
+    title: "Monitorizare continuă",
+    description: "Urmărești progresul pe platformă cu evaluări periodice și ajustări ale programului.",
+    highlight: "Acces 24/7",
   },
 ]
 
 export function HowItWorks() {
   return (
-    <section className="py-16 lg:py-24">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-foreground">
+    <section className="py-20 lg:py-28 bg-muted/20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div 
+          className="text-center max-w-2xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 text-foreground tracking-tight">
             Cum funcționează
           </h2>
-          <p className="text-muted-foreground leading-relaxed">
+          <p className="text-lg text-muted-foreground leading-relaxed">
             Un proces simplu și structurat pentru îmbunătățirea posturii tale. 
             De la evaluare la monitorizarea rezultatelor.
           </p>
-        </div>
+        </motion.div>
 
         <div className="relative">
-          {/* Connection Line */}
-          <div className="hidden lg:block absolute top-12 left-[calc(12.5%+24px)] right-[calc(12.5%+24px)] h-px bg-border" />
+          {/* Connection Line - Desktop */}
+          <div className="hidden lg:block absolute top-[60px] left-[calc(12.5%+40px)] right-[calc(12.5%+40px)]">
+            <div className="h-px bg-border relative">
+              <motion.div 
+                className="absolute inset-y-0 left-0 bg-primary"
+                initial={{ width: 0 }}
+                whileInView={{ width: "100%" }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, ease: "easeOut" }}
+              />
+            </div>
+          </div>
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {steps.map((step, index) => (
-              <div key={index} className="relative text-center">
+              <motion.div 
+                key={index} 
+                className="relative"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.15 }}
+              >
                 {/* Step Circle */}
-                <div className="relative z-10 inline-flex items-center justify-center w-12 h-12 rounded-full bg-card border border-border mb-5 mx-auto">
-                  <step.icon className="w-5 h-5 text-primary" />
+                <div className="relative z-10 flex items-center justify-center w-20 h-20 mx-auto mb-6">
+                  <div className="absolute inset-0 rounded-2xl bg-card border border-border shadow-sm" />
+                  <div className="relative w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <step.icon className="w-6 h-6 text-primary" />
+                  </div>
                 </div>
                 
-                {/* Step Number */}
-                <div className="text-xs font-bold text-primary mb-2">{step.step}</div>
-                
-                <h3 className="font-semibold text-lg mb-2 text-foreground">{step.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
-              </div>
+                {/* Content */}
+                <div className="text-center">
+                  <div className="inline-flex items-center gap-2 mb-3">
+                    <span className="text-xs font-bold text-primary">{step.step}</span>
+                    <ArrowRight className="w-3 h-3 text-muted-foreground hidden lg:block last:hidden" />
+                  </div>
+                  <h3 className="font-bold text-lg mb-2 text-foreground">{step.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">{step.description}</p>
+                  <span className="inline-block px-2.5 py-1 bg-primary/5 text-primary text-xs font-medium rounded-full">
+                    {step.highlight}
+                  </span>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>

@@ -1,12 +1,12 @@
 import { Header } from "@/components/landing/header"
 import { Hero } from "@/components/landing/hero"
 import { SocialProof } from "@/components/landing/social-proof"
-import { WhatIsStaiDrept } from "@/components/landing/what-is-stai-drept"
-import { ServicesOverview } from "@/components/landing/services-overview"
 import { AIPostureEvaluation } from "@/components/landing/ai-posture-evaluation"
-import { Benefits } from "@/components/landing/benefits"
+import { EcosystemOverview } from "@/components/landing/ecosystem-overview"
+import { ServicesOverview } from "@/components/landing/services-overview"
 import { HowItWorks } from "@/components/landing/how-it-works"
 import { PlatformPreview } from "@/components/landing/platform-preview"
+import { Benefits } from "@/components/landing/benefits"
 import { Testimonials } from "@/components/landing/testimonials"
 import { FAQ } from "@/components/landing/faq"
 import { FinalCTA } from "@/components/landing/final-cta"
@@ -18,12 +18,12 @@ export default function Home() {
       <Header />
       <Hero />
       <SocialProof />
-      <WhatIsStaiDrept />
-      <ServicesOverview />
       <AIPostureEvaluation />
-      <Benefits />
+      <EcosystemOverview />
+      <ServicesOverview />
       <HowItWorks />
       <PlatformPreview />
+      <Benefits />
       <Testimonials />
       <FAQ />
       <FinalCTA />
