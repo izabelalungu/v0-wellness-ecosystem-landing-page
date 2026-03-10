@@ -1,13 +1,14 @@
 import { Header } from "@/components/landing/header"
 import { Footer } from "@/components/landing/footer"
-import { PlatformaHero } from "@/components/platforma/hero"
-import { PlatformaOverview } from "@/components/platforma/overview"
-import { PlatformaFeatures } from "@/components/platforma/features"
-import { PlatformaShowcase } from "@/components/platforma/showcase"
-import { PlatformaAI } from "@/components/platforma/ai-integration"
-import { PlatformaBenefits } from "@/components/platforma/benefits"
-import { PlatformaFAQ } from "@/components/platforma/faq"
-import { FinalCTA } from "@/components/landing/final-cta"
+import { PlatformaHero } from "@/components/platforma-page/hero"
+import { PlatformaOverview } from "@/components/platforma-page/overview"
+import { PlatformaFeatures } from "@/components/platforma-page/features"
+import { PlatformaAI } from "@/components/platforma-page/ai-evaluation"
+import { PlatformaProgress } from "@/components/platforma-page/progress"
+import { PlatformaIntegration } from "@/components/platforma-page/integration"
+import { PlatformaHowItWorks } from "@/components/platforma-page/how-it-works"
+import { PlatformaForWhom } from "@/components/platforma-page/for-whom"
+import { PlatformaFinalCTA } from "@/components/platforma-page/final-cta"
 
 export default function PlatformaPage() {
   return (
@@ -16,11 +17,12 @@ export default function PlatformaPage() {
       <PlatformaHero />
       <PlatformaOverview />
       <PlatformaFeatures />
-      <PlatformaShowcase />
       <PlatformaAI />
-      <PlatformaBenefits />
-      <PlatformaFAQ />
-      <FinalCTA />
+      <PlatformaProgress />
+      <PlatformaIntegration />
+      <PlatformaHowItWorks />
+      <PlatformaForWhom />
+      <PlatformaFinalCTA />
       <Footer />
     </main>
   )
