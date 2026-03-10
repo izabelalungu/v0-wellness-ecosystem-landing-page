@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button"
 import { Menu, X, Scan } from "lucide-react"
 
 const navItems = [
-  { label: "ACASA", href: "#" },
-  { label: "SERVICII", href: "#servicii" },
-  { label: "PLATFORMA", href: "#platforma" },
-  { label: "CENTRU", href: "#centru" },
-  { label: "NUTRITIE", href: "#nutritie" },
+  { label: "ACASA", href: "/" },
+  { label: "SERVICII", href: "/servicii" },
+  { label: "PLATFORMA", href: "/platforma" },
+  { label: "CENTRU", href: "/centru" },
+  { label: "NUTRITIE", href: "/nutritie" },
 ]
 
 export function Header() {
