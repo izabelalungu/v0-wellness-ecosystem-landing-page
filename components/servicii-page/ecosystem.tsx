@@ -40,14 +40,15 @@ export function EcosystemSection() {
     <section className="py-20 lg:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
-          className="max-w-2xl mb-16"
+          className="mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <p className="text-sm font-medium text-primary uppercase tracking-wide mb-4">
-            Ecosistemul STAI DREPT
-          </p>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-4">
+            <span className="w-2 h-2 bg-primary rounded-full" />
+            <span className="text-xs font-medium text-primary uppercase tracking-wide">Ecosistemul STAI DREPT</span>
+          </div>
           
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 text-foreground tracking-tight">
             Patru piloni, o singura solutie

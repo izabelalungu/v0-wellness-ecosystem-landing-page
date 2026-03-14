@@ -2,39 +2,63 @@
 
 import { motion } from "framer-motion"
 import { Dumbbell, Activity, UtensilsCrossed, Monitor } from "lucide-react"
+import { useState } from "react"
 
 const pillars = [
   {
     icon: Dumbbell,
     title: "Gym",
-    description: "Antrenamente personalizate",
-    color: "bg-primary/10 text-primary",
-    position: "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2",
+    description: "Antrenamente personalizate pentru forță și mobilitate",
+    color: "bg-primary",
+    textColor: "text-primary-foreground",
+    index: 0,
   },
   {
     icon: Activity,
     title: "Recuperare",
-    description: "Fizioterapie și kinetoterapie",
-    color: "bg-chart-2/10 text-chart-2",
-    position: "top-1/2 right-0 translate-x-1/2 -translate-y-1/2",
+    description: "Fizioterapie, kinetoterapie și masaj terapeutic",
+    color: "bg-chart-2",
+    textColor: "text-white",
+    index: 1,
   },
   {
     icon: UtensilsCrossed,
     title: "Nutriție",
-    description: "Mese echilibrate și planuri",
-    color: "bg-chart-3/10 text-chart-3",
-    position: "bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2",
+    description: "Mese echilibrate și planuri personalizate",
+    color: "bg-chart-3",
+    textColor: "text-white",
+    index: 2,
   },
   {
     icon: Monitor,
     title: "Platformă",
-    description: "Monitorizare și management",
-    color: "bg-primary/10 text-primary",
-    position: "top-1/2 left-0 -translate-x-1/2 -translate-y-1/2",
+    description: "Monitorizare digitală și management integrat",
+    color: "bg-primary",
+    textColor: "text-primary-foreground",
+    index: 3,
   },
 ]
 
 export function EcosystemOverview() {
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  const getRotation = (index: number) => {
+    const offset = (index - activeIndex + pillars.length) % pillars.length
+    return (offset - 0.5) * 90
+  }
+
+  const getScale = (index: number) => {
+    return index === activeIndex ? 1.1 : 0.85
+  }
+
+  const getZIndex = (index: number) => {
+    return index === activeIndex ? 20 : 10
+  }
+
+  const handleRotate = (direction: number) => {
+    setActiveIndex((prev) => (prev + direction + pillars.length) % pillars.length)
+  }
+
   return (
     <section id="despre" className="py-20 lg:py-28 bg-muted/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,9 +70,10 @@ export function EcosystemOverview() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <p className="text-sm font-medium text-primary uppercase tracking-wide">
-              Ecosistem integrat
-            </p>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
+              <span className="w-2 h-2 bg-primary rounded-full" />
+              <span className="text-xs font-medium text-primary uppercase tracking-wide">Ecosistem integrat</span>
+            </div>
             
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
               Tot ce ai nevoie pentru o postură sănătoasă
@@ -85,7 +110,7 @@ export function EcosystemOverview() {
             </div>
           </motion.div>
 
-          {/* Right - Visual Hub */}
+          {/* Right - Interactive Carousel */}
           <motion.div 
             className="relative"
             initial={{ opacity: 0, scale: 0.95 }}
@@ -93,52 +118,98 @@ export function EcosystemOverview() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <div className="relative aspect-square max-w-md mx-auto">
-              {/* Connection lines */}
-              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 400">
-                <circle cx="200" cy="200" r="120" className="fill-none stroke-border stroke-1" strokeDasharray="4 4" />
-                {/* Lines to center */}
-                <line x1="200" y1="80" x2="200" y2="160" className="stroke-border stroke-1" />
-                <line x1="320" y1="200" x2="240" y2="200" className="stroke-border stroke-1" />
-                <line x1="200" y1="320" x2="200" y2="240" className="stroke-border stroke-1" />
-                <line x1="80" y1="200" x2="160" y2="200" className="stroke-border stroke-1" />
-              </svg>
-              
-              {/* Center Hub */}
+            <div className="relative aspect-square max-w-md mx-auto flex items-center justify-center">
+              {/* Central Hub */}
               <motion.div 
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+                className="absolute z-30 flex flex-col items-center"
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4, type: "spring" }}
               >
-                <div className="w-24 h-24 rounded-2xl bg-card border-2 border-primary shadow-lg flex flex-col items-center justify-center">
-                  <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center mb-1">
-                    <span className="text-primary-foreground font-bold text-sm">SD</span>
+                <div className="w-28 h-28 rounded-3xl bg-card border-2 border-primary shadow-lg flex flex-col items-center justify-center">
+                  <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center mb-2">
+                    <span className="text-primary-foreground font-bold text-lg">SD</span>
                   </div>
-                  <span className="text-xs font-semibold text-foreground">STAI DREPT</span>
+                  <span className="text-sm font-semibold text-foreground">STAI DREPT</span>
                 </div>
               </motion.div>
-              
-              {/* Pillar Cards */}
-              {pillars.map((pillar, index) => (
-                <motion.div
-                  key={index}
-                  className={`absolute ${pillar.position} z-20`}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.5 + index * 0.1 }}
-                >
-                  <div className="bg-card rounded-xl border border-border p-4 shadow-sm w-36">
-                    <div className={`w-10 h-10 rounded-lg ${pillar.color} flex items-center justify-center mb-3`}>
-                      <pillar.icon className="w-5 h-5" />
-                    </div>
-                    <p className="font-semibold text-sm text-foreground">{pillar.title}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">{pillar.description}</p>
-                  </div>
-                </motion.div>
-              ))}
+
+              {/* Carousel Cards - 4 positions around center */}
+              {pillars.map((pillar) => {
+                const rotation = getRotation(pillar.index)
+                const scale = getScale(pillar.index)
+                const zIndex = getZIndex(pillar.index)
+                const isActive = pillar.index === activeIndex
+
+                return (
+                  <motion.div
+                    key={pillar.index}
+                    className="absolute"
+                    animate={{
+                      rotate: rotation,
+                      x: Math.cos((rotation * Math.PI) / 180) * 160,
+                      y: Math.sin((rotation * Math.PI) / 180) * 160,
+                    }}
+                    transition={{ type: "spring", stiffness: 100, damping: 15 }}
+                    style={{ zIndex }}
+                  >
+                    <motion.div
+                      animate={{ scale }}
+                      transition={{ type: "spring", stiffness: 100, damping: 15 }}
+                      className="cursor-pointer"
+                      onClick={() => setActiveIndex(pillar.index)}
+                    >
+                      <div
+                        className={`w-40 rounded-2xl p-6 text-center transition-all duration-300 ${
+                          isActive
+                            ? `${pillar.color} ${pillar.textColor} shadow-xl`
+                            : "bg-card border border-border text-foreground shadow-md hover:shadow-lg"
+                        }`}
+                      >
+                        <div
+                          className={`w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3 ${
+                            isActive
+                              ? "bg-white/20"
+                              : "bg-muted"
+                          }`}
+                        >
+                          <pillar.icon className={`w-6 h-6 ${isActive ? pillar.textColor : "text-foreground"}`} />
+                        </div>
+                        <h3 className={`font-semibold mb-1 ${isActive ? pillar.textColor : "text-foreground"}`}>
+                          {pillar.title}
+                        </h3>
+                        {isActive && (
+                          <motion.p
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="text-sm leading-relaxed"
+                          >
+                            {pillar.description}
+                          </motion.p>
+                        )}
+                      </div>
+                    </motion.div>
+                  </motion.div>
+                )
+              })}
+
+              {/* Navigation Dots */}
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-32 flex gap-2">
+                {pillars.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setActiveIndex(index)}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      index === activeIndex
+                        ? "bg-primary w-6"
+                        : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                    }`}
+                    aria-label={`Go to pillar ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
@@ -146,3 +217,4 @@ export function EcosystemOverview() {
     </section>
   )
 }
+
