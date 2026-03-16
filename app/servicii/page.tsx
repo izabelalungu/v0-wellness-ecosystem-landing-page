@@ -1,9 +1,9 @@
 import { Header } from "@/components/landing/header"
 import { Footer } from "@/components/landing/footer"
 import { ServiciiHero } from "@/components/servicii-page/hero"
-import { EcosystemSection } from "@/components/servicii-page/ecosystem"
-import { HowItWorksSection } from "@/components/servicii-page/how-it-works"
-import { ProgramsSection } from "@/components/servicii-page/programs"
+import { IntegratedSolutionSection } from "@/components/servicii-page/integrated-solution"
+import { StepsProcessSection } from "@/components/servicii-page/steps-process"
+import { ServicesCardsSection } from "@/components/servicii-page/services-cards"
 import { WhyStaiDreptSection } from "@/components/servicii-page/why-stai-drept"
 import { ForWhomSection } from "@/components/servicii-page/for-whom"
 import { BenefitsSection } from "@/components/servicii-page/benefits"
@@ -14,9 +14,9 @@ export default function ServiciiPage() {
     <main className="min-h-screen bg-background">
       <Header />
       <ServiciiHero />
-      <EcosystemSection />
-      <HowItWorksSection />
-      <ProgramsSection />
+      <IntegratedSolutionSection />
+      <StepsProcessSection />
+      <ServicesCardsSection />
       <WhyStaiDreptSection />
       <ForWhomSection />
       <BenefitsSection />
