@@ -1,8 +1,7 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Dumbbell, Utensils } from "lucide-react"
-import { motion } from "framer-motion"
+import { Dumbbell, Utensils, Monitor } from "lucide-react"
+import { PageHero } from "@/components/shared/page-hero"
 
 // Mini dashboard preview component
 function DashboardPreview() {
@@ -101,51 +100,15 @@ function DashboardPreview() {
 
 export function PlatformaProductHero() {
   return (
-    <section className="py-20 lg:py-28">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left - Dashboard Preview */}
-          <motion.div
-            className="order-2 lg:order-1"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <DashboardPreview />
-          </motion.div>
-
-          {/* Right - Content */}
-          <motion.div
-            className="order-1 lg:order-2 space-y-6"
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
-              <span className="w-2 h-2 bg-primary rounded-full" />
-              <span className="text-xs font-medium text-primary uppercase tracking-wide">Platformă digitală</span>
-            </div>
-
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight leading-tight">
-              Cea mai simplă cale să îți gestionezi progresul wellness
-            </h1>
-
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Platforma STAI DREPT conectează antrenamentele, evaluările posturale, nutriția și abonamentele 
-              într-un singur loc. Urmărești progresul, programezi ședințe și accesezi totul de pe orice dispozitiv.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Button size="lg" className="h-14 px-8 text-base">
-                Descoperă platforma
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
+    <PageHero
+      ribbonIcon={Monitor}
+      ribbonText="Platformă digitală"
+      ribbonColor="primary"
+      title="Cea mai simplă cale să îți gestionezi progresul wellness"
+      subtitle="Platforma STAI DREPT conectează antrenamentele, evaluările posturale, nutriția și abonamentele într-un singur loc. Urmărești progresul, programezi ședințe și accesezi totul de pe orice dispozitiv."
+      primaryButtonText="Descoperă platforma"
+      sideContent={<DashboardPreview />}
+      reversed
+    />
   )
 }
