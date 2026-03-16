@@ -1,8 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Dumbbell, Activity, UtensilsCrossed, Monitor } from "lucide-react"
-import { useState } from "react"
+import { Dumbbell, Activity, UtensilsCrossed, Monitor, Smartphone } from "lucide-react"
+import { useState, useEffect } from "react"
 
 const pillars = [
   {
@@ -11,7 +11,6 @@ const pillars = [
     description: "Antrenamente personalizate pentru forță și mobilitate",
     color: "bg-primary",
     textColor: "text-primary-foreground",
-    index: 0,
   },
   {
     icon: Activity,
@@ -19,7 +18,6 @@ const pillars = [
     description: "Fizioterapie, kinetoterapie și masaj terapeutic",
     color: "bg-chart-2",
     textColor: "text-white",
-    index: 1,
   },
   {
     icon: UtensilsCrossed,
@@ -27,7 +25,6 @@ const pillars = [
     description: "Mese echilibrate și planuri personalizate",
     color: "bg-chart-3",
     textColor: "text-white",
-    index: 2,
   },
   {
     icon: Monitor,
@@ -35,28 +32,46 @@ const pillars = [
     description: "Monitorizare digitală și management integrat",
     color: "bg-primary",
     textColor: "text-primary-foreground",
-    index: 3,
+  },
+  {
+    icon: Smartphone,
+    title: "App Mobile",
+    description: "Acces la toate serviciile din orice loc",
+    color: "bg-chart-2",
+    textColor: "text-white",
   },
 ]
 
 export function EcosystemOverview() {
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activeIndex, setActiveIndex] = useState(2) // Center card starts active
+  const [autoPlay, setAutoPlay] = useState(true)
 
-  const getRotation = (index: number) => {
-    const offset = (index - activeIndex + pillars.length) % pillars.length
-    return (offset - 0.5) * 90
+  // Auto-rotate every 3 seconds
+  useEffect(() => {
+    if (!autoPlay) return
+
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % pillars.length)
+    }, 3000)
+
+    return () => clearInterval(interval)
+  }, [autoPlay])
+
+  const handleCardClick = (index: number) => {
+    setActiveIndex(index)
+    setAutoPlay(false)
   }
 
-  const getScale = (index: number) => {
-    return index === activeIndex ? 1.1 : 0.85
-  }
-
-  const getZIndex = (index: number) => {
-    return index === activeIndex ? 20 : 10
-  }
-
-  const handleRotate = (direction: number) => {
-    setActiveIndex((prev) => (prev + direction + pillars.length) % pillars.length)
+  // Calculate grid positions: 2 left, center, 2 right
+  const getGridPosition = (index: number) => {
+    const positions: Record<number, string> = {
+      0: "col-start-1 row-start-1",
+      1: "col-start-1 row-start-2",
+      2: "col-start-2 row-start-1 row-span-2",
+      3: "col-start-3 row-start-1",
+      4: "col-start-3 row-start-2",
+    }
+    return positions[index]
   }
 
   return (
@@ -110,7 +125,7 @@ export function EcosystemOverview() {
             </div>
           </motion.div>
 
-          {/* Right - Interactive Carousel */}
+          {/* Right - Grid Cards Layout */}
           <motion.div 
             className="relative"
             initial={{ opacity: 0, scale: 0.95 }}
@@ -118,65 +133,39 @@ export function EcosystemOverview() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <div className="relative aspect-square max-w-md mx-auto flex items-center justify-center">
-              {/* Central Hub */}
-              <motion.div 
-                className="absolute z-30 flex flex-col items-center"
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4, type: "spring" }}
-              >
-                <div className="w-28 h-28 rounded-3xl bg-card border-2 border-primary shadow-lg flex flex-col items-center justify-center">
-                  <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center mb-2">
-                    <span className="text-primary-foreground font-bold text-lg">SD</span>
-                  </div>
-                  <span className="text-sm font-semibold text-foreground">STAI DREPT</span>
-                </div>
-              </motion.div>
-
-              {/* Carousel Cards - 4 positions around center */}
-              {pillars.map((pillar) => {
-                const rotation = getRotation(pillar.index)
-                const scale = getScale(pillar.index)
-                const zIndex = getZIndex(pillar.index)
-                const isActive = pillar.index === activeIndex
+            <div className="grid grid-cols-3 gap-4 max-w-2xl">
+              {pillars.map((pillar, index) => {
+                const isActive = index === activeIndex
 
                 return (
                   <motion.div
-                    key={pillar.index}
-                    className="absolute"
-                    animate={{
-                      rotate: rotation,
-                      x: Math.cos((rotation * Math.PI) / 180) * 160,
-                      y: Math.sin((rotation * Math.PI) / 180) * 160,
-                    }}
-                    transition={{ type: "spring", stiffness: 100, damping: 15 }}
-                    style={{ zIndex }}
+                    key={index}
+                    className={`${getGridPosition(index)} cursor-pointer`}
+                    onClick={() => handleCardClick(index)}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
                   >
                     <motion.div
-                      animate={{ scale }}
+                      animate={{ scale: isActive ? 1.05 : 1 }}
                       transition={{ type: "spring", stiffness: 100, damping: 15 }}
-                      className="cursor-pointer"
-                      onClick={() => setActiveIndex(pillar.index)}
                     >
                       <div
-                        className={`w-40 rounded-2xl p-6 text-center transition-all duration-300 ${
+                        className={`rounded-2xl p-6 text-center transition-all duration-300 h-full flex flex-col items-center justify-center ${
                           isActive
-                            ? `${pillar.color} ${pillar.textColor} shadow-xl`
-                            : "bg-card border border-border text-foreground shadow-md hover:shadow-lg"
+                            ? `${pillar.color} ${pillar.textColor} shadow-2xl scale-105`
+                            : "bg-card border border-border text-foreground shadow-md hover:shadow-lg hover:scale-105"
                         }`}
                       >
                         <div
-                          className={`w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3 ${
-                            isActive
-                              ? "bg-white/20"
-                              : "bg-muted"
+                          className={`w-14 h-14 rounded-lg flex items-center justify-center mb-4 ${
+                            isActive ? "bg-white/20" : "bg-muted"
                           }`}
                         >
-                          <pillar.icon className={`w-6 h-6 ${isActive ? pillar.textColor : "text-foreground"}`} />
+                          <pillar.icon className={`w-7 h-7 ${isActive ? pillar.textColor : "text-foreground"}`} />
                         </div>
-                        <h3 className={`font-semibold mb-1 ${isActive ? pillar.textColor : "text-foreground"}`}>
+                        <h3 className={`font-semibold text-base mb-2 ${isActive ? pillar.textColor : "text-foreground"}`}>
                           {pillar.title}
                         </h3>
                         {isActive && (
@@ -194,23 +183,39 @@ export function EcosystemOverview() {
                   </motion.div>
                 )
               })}
-
-              {/* Navigation Dots */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-32 flex gap-2">
-                {pillars.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setActiveIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      index === activeIndex
-                        ? "bg-primary w-6"
-                        : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                    }`}
-                    aria-label={`Go to pillar ${index + 1}`}
-                  />
-                ))}
-              </div>
             </div>
+
+            {/* Navigation Dots */}
+            <div className="flex justify-center gap-2 mt-8">
+              {pillars.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleCardClick(index)}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    index === activeIndex
+                      ? "bg-primary w-6"
+                      : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                  }`}
+                  aria-label={`Go to pillar ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Resume auto-play button hint */}
+            {!autoPlay && (
+              <motion.div
+                className="text-center mt-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                <button
+                  onClick={() => setAutoPlay(true)}
+                  className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Click to resume auto-play
+                </button>
+              </motion.div>
+            )}
           </motion.div>
         </div>
       </div>

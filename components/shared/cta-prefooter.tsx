@@ -1,10 +1,38 @@
 "use client"
 
-import { CTAPrefooter } from "@/components/shared/cta-prefooter"
+import { Button } from "@/components/ui/button"
+import { ArrowRight, MapPin, Sparkles } from "lucide-react"
+import { motion } from "framer-motion"
+import { useState, useRef } from "react"
 
-export function FinalCTA() {
-  return <CTAPrefooter />
+interface CTAPrefooterProps {
+  title?: string
+  description?: string
+  primaryButtonText?: string
+  secondaryButtonText?: string
+  primaryButtonOnClick?: () => void
+  secondaryButtonOnClick?: () => void
 }
+
+export function CTAPrefooter({
+  title = "Pregătit să îți îmbunătățești postura?",
+  description = "Începe cu o evaluare posturală gratuită pentru a descoperi ce zone necesită atenție și primești recomandări personalizate instant.",
+  primaryButtonText = "Începe evaluarea gratuită",
+  secondaryButtonText = "Vizitează centrul",
+  primaryButtonOnClick,
+  secondaryButtonOnClick,
+}: CTAPrefooterProps) {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!sectionRef.current) return
+    const rect = sectionRef.current.getBoundingClientRect()
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    })
+  }
 
   return (
     <section 
@@ -39,29 +67,32 @@ export function FinalCTA() {
         </div>
         
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 tracking-tight text-background">
-          Pregătit să îți îmbunătățești postura?
+          {title}
         </h2>
         <p className="text-lg text-background/75 leading-relaxed mb-10 max-w-2xl mx-auto">
-          Începe cu o evaluare posturală gratuită pentru a descoperi ce zone 
-          necesită atenție și primește recomandări personalizate instant.
+          {description}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" className="h-14 px-8 text-base bg-primary hover:bg-primary/90 text-primary-foreground">
-            Începe evaluarea gratuită
+          <Button 
+            size="lg" 
+            className="h-14 px-8 text-base bg-primary hover:bg-primary/90 text-primary-foreground"
+            onClick={primaryButtonOnClick}
+          >
+            {primaryButtonText}
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
           <Button 
             size="lg" 
             variant="outline" 
             className="h-14 px-8 text-base border-background/20 text-background hover:bg-background/10"
+            onClick={secondaryButtonOnClick}
           >
             <MapPin className="w-4 h-4 mr-2" />
-            Vizitează centrul
+            {secondaryButtonText}
           </Button>
         </div>
       </motion.div>
     </section>
   )
 }
-
