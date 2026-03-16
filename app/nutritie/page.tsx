@@ -1,28 +1,26 @@
 import { Header } from "@/components/landing/header"
 import { Footer } from "@/components/landing/footer"
-import { NutrieHero } from "@/components/nutritie/hero"
-import { NutrieAbout } from "@/components/nutritie/about"
-import { NutrieHowItWorks } from "@/components/nutritie/how-it-works"
-import { NutrieMealExamples } from "@/components/nutritie/meal-examples"
-import { NutrieBenefits } from "@/components/nutritie/benefits"
-import { NutrieIntegration } from "@/components/nutritie/integration"
-import { NutrieDeliveryOptions } from "@/components/nutritie/delivery-options"
-import { NutrieForWhom } from "@/components/nutritie/for-whom"
-import { NutrieFinalCTA } from "@/components/nutritie/final-cta"
+import { NutrieVisualIntro } from "@/components/nutritie/visual-intro"
+import { NutrieFeaturedNutrition } from "@/components/nutritie/featured-nutrition"
+import { NutrieTrustStrip } from "@/components/nutritie/trust-strip"
+import { NutrieMenuCards } from "@/components/nutritie/menu-cards"
+import { NutrieServicesBenefits } from "@/components/nutritie/services-benefits"
+import { NutrieWeeklyOffer } from "@/components/nutritie/weekly-offer"
+import { NutrieSubscriptionBanner } from "@/components/nutritie/subscription-banner"
+import { FinalCTA } from "@/components/landing/final-cta"
 
-export default function NutriePagee() {
+export default function NutriePage() {
   return (
     <main className="min-h-screen bg-background">
       <Header />
-      <NutrieHero />
-      <NutrieAbout />
-      <NutrieHowItWorks />
-      <NutrieMealExamples />
-      <NutrieBenefits />
-      <NutrieIntegration />
-      <NutrieDeliveryOptions />
-      <NutrieForWhom />
-      <NutrieFinalCTA />
+      <NutrieVisualIntro />
+      <NutrieFeaturedNutrition />
+      <NutrieTrustStrip />
+      <NutrieMenuCards />
+      <NutrieServicesBenefits />
+      <NutrieWeeklyOffer />
+      <NutrieSubscriptionBanner />
+      <FinalCTA />
       <Footer />
     </main>
   )
