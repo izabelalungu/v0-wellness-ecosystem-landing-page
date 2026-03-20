@@ -81,7 +81,7 @@ export function ChefNutritionistTeam() {
           transition={{ delay: 0.2 }}
         >
           <p className="text-center text-sm text-muted-foreground">
-            <span className="font-semibold text-foreground">Coordonare activă:</span> Chef și nutritionist comunicează
+            <span className="font-semibold text-foreground">Coordonare activă:</span> Chef și nutritionist comunicată
             asupra fiecărui plan, asigurând că meniurile sunt atât delicioase cât și perfect aliniate cu obiectivele tale.
           </p>
         </motion.div>
