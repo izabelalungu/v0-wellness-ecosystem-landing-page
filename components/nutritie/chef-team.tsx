@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ChefHat, Users2, Award } from "lucide-react"
+import { UtensilsCrossed, Users2, Award } from "lucide-react"
 
 export function ChefNutritionistTeam() {
   const teamMembers = [
@@ -9,16 +9,16 @@ export function ChefNutritionistTeam() {
       role: "Chef Specialist",
       title: "Execuție Culinar Premium",
       description: "Gustul și varietatea nu sunt negociate. Fiecare meniu este pregătit de bucătari cu experiență în nutriție aplicată.",
-      icon: ChefHat,
-      benefits: ["Tehnici culinare rafinate", "Ingrediente selectate", "Prezentare atractivă"]
+      icon: UtensilsCrossed,
+      benefits: ["Tehnici culinare rafinate", "Ingrediente selectate", "Prezentare atractivă"],
     },
     {
       role: "Nutritionist",
       title: "Strategie Nutrițională",
       description: "Logica din spatele fiecărui plan: macronutrienți calculați, timing-ul alimentelor, și susținere pentru rezultatele tale.",
       icon: Award,
-      benefits: ["Planuri personalizate", "Ajustări periodice", "Suport constant"]
-    }
+      benefits: ["Planuri personalizate", "Ajustări periodice", "Suport constant"],
+    },
   ]
 
   return (
@@ -60,7 +60,6 @@ export function ChefNutritionistTeam() {
                 <h3 className="text-sm font-semibold text-chart-3 uppercase tracking-wide mb-1">{member.role}</h3>
                 <h4 className="text-xl font-bold text-foreground mb-3">{member.title}</h4>
                 <p className="text-sm text-muted-foreground mb-6">{member.description}</p>
-                
                 <div className="space-y-2 pt-4 border-t border-border">
                   {member.benefits.map((benefit, j) => (
                     <div key={j} className="flex items-center gap-2 text-sm">
@@ -74,16 +73,16 @@ export function ChefNutritionistTeam() {
           })}
         </div>
 
-        {/* Integration Message */}
         <motion.div
-          className="bg-gradient-to-r from-chart-3/5 to-transparent rounded-xl p-6 border border-chart-3/20"
+          className="bg-chart-3/5 rounded-xl p-6 border border-chart-3/20"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
           <p className="text-center text-sm text-muted-foreground">
-            <span className="font-semibold text-foreground">Coordonare activă:</span> Chef și nutritionist comunicează asupra fiecărui plan, asigurând că meniurile sunt atât delicioase cât și perfect align-ate cu obiectivele tale.
+            <span className="font-semibold text-foreground">Coordonare activă:</span> Chef și nutritionist comunicează
+            asupra fiecărui plan, asigurând că meniurile sunt atât delicioase cât și perfect aliniate cu obiectivele tale.
           </p>
         </motion.div>
       </div>
