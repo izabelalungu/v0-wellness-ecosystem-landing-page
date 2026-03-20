@@ -24,21 +24,21 @@ export function Hero() {
             
             <div className="space-y-5">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-foreground text-balance">
-                Corectează-ți postura.
+                Scapă de dureri.
                 <br />
-                <span className="text-primary">Mișcă-te mai bine.</span>
+                <span className="text-primary">Stai drept.</span>
               </h1>
               
               <p className="text-lg text-muted-foreground leading-relaxed max-w-lg">
-                Un ecosistem integrat care combină antrenament personalizat, 
-                recuperare posturală, nutriție și evaluare prin inteligență artificială.
+                STAI DREPT este un sistem integrat care combină antrenament personalizat, 
+                recuperare posturală, nutriție și AI. Fără drumuri inutile. Doar progres măsurabil.
               </p>
             </div>
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-3">
               <Button size="lg" className="text-base h-12 px-6">
-                Începe evaluarea gratuită
+                Fă testul postural gratuit
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
               <Button size="lg" variant="outline" className="text-base h-12 px-6">

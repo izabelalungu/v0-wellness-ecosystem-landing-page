@@ -8,6 +8,8 @@ import { Menu, X, Scan } from "lucide-react"
 const navItems = [
   { label: "ACASA", href: "/" },
   { label: "SERVICII", href: "/servicii" },
+  { label: "FITNESS", href: "/fitness" },
+  { label: "RECUPERARE", href: "/recuperare" },
   { label: "PLATFORMA", href: "/platforma" },
   { label: "CENTRU", href: "/centru" },
   { label: "NUTRITIE", href: "/nutritie" },

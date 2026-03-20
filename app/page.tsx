@@ -1,5 +1,10 @@
 import { Header } from "@/components/landing/header"
 import { Hero } from "@/components/landing/hero"
+import { TopSellingPoints } from "@/components/landing/top-selling-points"
+import { IntegratedEcosystemDifferentiation } from "@/components/landing/integrated-ecosystem-diff"
+import { TeamAndSpecialists } from "@/components/landing/team-specialists"
+import { ForWhomSection } from "@/components/landing/for-whom"
+import { HowToStartJourney } from "@/components/landing/how-to-start"
 import { SocialProof } from "@/components/landing/social-proof"
 import { AIPostureEvaluation } from "@/components/landing/ai-posture-evaluation"
 import { EcosystemOverview } from "@/components/landing/ecosystem-overview"
@@ -17,6 +22,11 @@ export default function Home() {
     <main className="min-h-screen bg-background">
       <Header />
       <Hero />
+      <TopSellingPoints />
+      <IntegratedEcosystemDifferentiation />
+      <TeamAndSpecialists />
+      <ForWhomSection />
+      <HowToStartJourney />
       <SocialProof />
       <AIPostureEvaluation />
       <EcosystemOverview />

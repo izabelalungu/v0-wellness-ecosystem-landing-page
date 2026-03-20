@@ -34,10 +34,11 @@ export function NutrieHero() {
       ribbonIcon={Leaf}
       ribbonText="Program de nutriție"
       ribbonColor="chart-3"
-      title="Programul de Nutriție STAI DREPT"
-      subtitle="Mese echilibrate și planuri alimentare create pentru energie, recuperare și performanță."
-      primaryButtonText="Vezi meniul lunar"
-      secondaryButtonText="Aboneaza-te la planul de mese"
+      title="Nutriție Personalizată, Construită pentru Obiectivul Tău"
+      titleHighlight="Nu doar mâncare. O soluție."
+      subtitle="Mese zilnice create de chef și nutritionist. Macronutrienți calculați pentru slăbire, masă musculară sau menținere. Livrare acasă, birou, sau pickup din centru."
+      primaryButtonText="Alege Meniul Tău"
+      secondaryButtonText="Vezi Cum Funcționează"
       sideContent={<MealCards />}
     />
   )

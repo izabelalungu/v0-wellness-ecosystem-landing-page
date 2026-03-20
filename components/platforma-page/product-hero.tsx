@@ -104,9 +104,9 @@ export function PlatformaProductHero() {
       ribbonIcon={Monitor}
       ribbonText="Platformă digitală"
       ribbonColor="primary"
-      title="Cea mai simplă cale să îți gestionezi progresul wellness"
-      subtitle="Platforma STAI DREPT conectează antrenamentele, evaluările posturale, nutriția și abonamentele într-un singur loc. Urmărești progresul, programezi ședințe și accesezi totul de pe orice dispozitiv."
-      primaryButtonText="Descoperă platforma"
+      title="Antrenament Personalizat cu AI. Control Total. Progres Măsurabil."
+      subtitle="Platformă care se adaptează ție, nu invers. Primești un program construit pe baza evaluării tale, îți urmărești progresul în timp real și gestionezi totul dintr-un singur loc—de acasă, de la birou sau din vacanță."
+      primaryButtonText="Accesează Platforma"
       sideContent={<DashboardPreview />}
       reversed
     />
