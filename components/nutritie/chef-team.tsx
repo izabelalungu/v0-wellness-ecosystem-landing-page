@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Chef, Users2, Award } from "lucide-react"
+import { ChefHat, Users2, Award } from "lucide-react"
 
 export function ChefNutritionistTeam() {
   const teamMembers = [
@@ -9,7 +9,7 @@ export function ChefNutritionistTeam() {
       role: "Chef Specialist",
       title: "Execuție Culinar Premium",
       description: "Gustul și varietatea nu sunt negociate. Fiecare meniu este pregătit de bucătari cu experiență în nutriție aplicată.",
-      icon: Chef,
+      icon: ChefHat,
       benefits: ["Tehnici culinare rafinate", "Ingrediente selectate", "Prezentare atractivă"]
     },
     {
