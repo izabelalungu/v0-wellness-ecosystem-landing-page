@@ -2,65 +2,111 @@
 
 import { motion } from "framer-motion"
 import { Dumbbell, Activity, UtensilsCrossed, Monitor, Smartphone } from "lucide-react"
-import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button"
 
 const pillars = [
   {
+    id: "far-left",
     icon: Dumbbell,
     title: "Gym",
+    subtitle: "Antrenament",
     description: "Antrenamente personalizate pentru forță și mobilitate",
+    benefits: ["Programe adaptate", "Tehnică impecabilă", "Progres măsurabil"],
     color: "bg-primary",
     textColor: "text-primary-foreground",
+    visualMockup: "🏋️",
   },
   {
+    id: "left",
     icon: Activity,
     title: "Recuperare",
+    subtitle: "Terapie",
     description: "Fizioterapie, kinetoterapie și masaj terapeutic",
+    benefits: ["Dureri eliminate", "Mobilitate crescută", "Recuperare rapidă"],
     color: "bg-chart-2",
     textColor: "text-white",
+    visualMockup: "💆",
   },
   {
+    id: "center",
     icon: UtensilsCrossed,
     title: "Nutriție",
-    description: "Mese echilibrate și planuri personalizate",
+    subtitle: "Program",
+    description: "Mese echilibrate, macronutrienți calculați și planuri personalizate pentru fiecare obiectiv",
+    benefits: ["Macronutrienți calibrați", "Mese zilnice", "Program integrat"],
     color: "bg-chart-3",
     textColor: "text-white",
+    visualMockup: "🥗",
   },
   {
+    id: "right",
     icon: Monitor,
     title: "Platformă",
-    description: "Monitorizare digitală și management integrat",
+    subtitle: "Digital",
+    description: "Monitorizare digitală și management integrat al progresului",
+    benefits: ["Progres în timp real", "Date concrete", "Dashboard complet"],
     color: "bg-primary",
     textColor: "text-primary-foreground",
+    visualMockup: "📊",
   },
   {
+    id: "far-right",
     icon: Smartphone,
     title: "App Mobile",
-    description: "Acces la toate serviciile din orice loc",
+    subtitle: "Acces",
+    description: "Acces la toate serviciile din orice loc, oricând",
+    benefits: ["Disponibil 24/7", "Sincronizare automată", "Notificări smart"],
     color: "bg-chart-2",
     textColor: "text-white",
+    visualMockup: "📱",
   },
 ]
 
-export function EcosystemOverview() {
-  const [activeIndex, setActiveIndex] = useState(2)
-  const [autoPlay, setAutoPlay] = useState(true)
+// Position mapping for the 5-card stacked triangular composition
+const positionConfig = {
+  "far-left": {
+    translateX: -280,
+    translateY: 60,
+    scale: 0.75,
+    opacity: 0.35,
+    zIndex: 5,
+    blur: 8,
+  },
+  "left": {
+    translateX: -140,
+    translateY: 20,
+    scale: 0.88,
+    opacity: 0.65,
+    zIndex: 15,
+    blur: 4,
+  },
+  "center": {
+    translateX: 0,
+    translateY: 0,
+    scale: 1,
+    opacity: 1,
+    zIndex: 50,
+    blur: 0,
+  },
+  "right": {
+    translateX: 140,
+    translateY: 20,
+    scale: 0.88,
+    opacity: 0.65,
+    zIndex: 15,
+    blur: 4,
+  },
+  "far-right": {
+    translateX: 280,
+    translateY: 60,
+    scale: 0.75,
+    opacity: 0.35,
+    zIndex: 5,
+    blur: 8,
+  },
+}
 
-  useEffect(() => {
-    if (!autoPlay) return
-
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % pillars.length)
-    }, 3000)
-
-    return () => clearInterval(interval)
-  }, [autoPlay])
-
-  const handleCardClick = (index: number) => {
-    setActiveIndex(index)
-    setAutoPlay(false)
-  }
-
+export function EcosystemOverviewSection() {
   return (
     <section id="despre" className="py-20 lg:py-28 bg-muted/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -112,122 +158,117 @@ export function EcosystemOverview() {
             </div>
           </motion.div>
 
-          {/* Right - Premium Layered Card Showcase */}
+          {/* Right - Premium 5-Card Stacked Triangular Composition */}
           <motion.div 
-            className="relative h-96 flex items-center justify-center"
+            className="relative h-[500px] flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/5 via-transparent to-chart-2/5 blur-2xl pointer-events-none" />
+            {/* Atmospheric background gradient */}
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/8 via-transparent to-chart-2/8 blur-3xl pointer-events-none" />
 
-            <div className="relative w-full max-w-2xl h-full">
+            {/* 5-Card Container - Absolute positioning for stacked composition */}
+            <div className="relative w-full h-full max-w-4xl">
               {pillars.map((pillar, index) => {
-                const isActive = index === activeIndex
-                const isLeft = index < activeIndex
-                const isRight = index > activeIndex
-                
-                const offsetX = isLeft ? -120 : isRight ? 120 : 0
-                const offsetY = isLeft || isRight ? 40 : 0
-                const zIndex = isActive ? 30 : isLeft || isRight ? 10 : 5
-                const scale = isActive ? 1 : 0.85
-                const opacity = isActive ? 1 : 0.4
+                const config = positionConfig[pillar.id as keyof typeof positionConfig]
 
                 return (
                   <motion.div
-                    key={index}
-                    className="absolute inset-0 flex items-center justify-center cursor-pointer"
-                    onClick={() => handleCardClick(index)}
-                    animate={{
-                      x: offsetX,
-                      y: offsetY,
-                      zIndex: zIndex,
-                      scale: scale,
+                    key={pillar.id}
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ 
+                      opacity: config.opacity, 
+                      scale: config.scale,
                     }}
-                    transition={{
+                    viewport={{ once: true }}
+                    transition={{ 
+                      delay: index * 0.1,
+                      duration: 0.6,
                       type: "spring",
-                      stiffness: 120,
-                      damping: 20,
-                      duration: 0.4,
+                      stiffness: 100,
+                      damping: 25,
+                    }}
+                    style={{
+                      zIndex: config.zIndex,
+                      filter: `blur(${config.blur}px)`,
                     }}
                   >
                     <motion.div
                       className={`
-                        relative w-80 rounded-3xl p-8 
-                        transition-all duration-300 backdrop-blur-sm
-                        ${
-                          isActive
-                            ? `${pillar.color} ${pillar.textColor} shadow-2xl border border-white/20`
-                            : `bg-card/60 border border-border/50 text-foreground/50 backdrop-blur-md blur-sm`
-                        }
+                        relative w-80 rounded-3xl overflow-hidden
+                        ${pillar.color} ${pillar.textColor}
+                        shadow-2xl border border-white/10
+                        transition-all duration-300
                       `}
-                      style={{ opacity: opacity }}
+                      animate={{
+                        x: config.translateX,
+                        y: config.translateY,
+                      }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 100,
+                        damping: 25,
+                      }}
                     >
-                      {isActive && (
-                        <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/10 via-transparent to-black/10 pointer-events-none" />
-                      )}
+                      {/* Gradient overlay for premium feel */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 pointer-events-none" />
 
-                      <div className="relative z-10 flex flex-col items-center text-center">
-                        <motion.div
-                          className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${
-                            isActive ? "bg-white/20 shadow-lg" : "bg-muted/30"
-                          }`}
-                          animate={{ scale: isActive ? 1 : 0.8 }}
-                        >
-                          <pillar.icon 
-                            className={`w-8 h-8 ${isActive ? pillar.textColor : "text-foreground/40"}`} 
-                          />
-                        </motion.div>
+                      {/* Card Content */}
+                      <div className="relative z-10 flex flex-col h-full p-8">
+                        {/* Ribbon/Eyebrow Label */}
+                        <div className="inline-flex items-center gap-2 mb-3 w-fit px-3 py-1 rounded-full bg-white/15 border border-white/20">
+                          <span className="text-xs font-semibold uppercase tracking-wide opacity-90">
+                            {pillar.subtitle}
+                          </span>
+                        </div>
 
-                        <h3 
-                          className={`font-bold text-xl mb-3 transition-colors ${
-                            isActive ? pillar.textColor : "text-foreground/50"
-                          }`}
-                        >
+                        {/* Headline */}
+                        <h3 className="text-2xl lg:text-3xl font-bold mb-2 leading-tight">
                           {pillar.title}
                         </h3>
 
-                        {isActive && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            <p className={`text-sm leading-relaxed ${pillar.textColor} opacity-90`}>
-                              {pillar.description}
-                            </p>
-                          </motion.div>
-                        )}
+                        {/* Description */}
+                        <p className="text-sm leading-relaxed opacity-90 mb-4">
+                          {pillar.description}
+                        </p>
+
+                        {/* Benefits/Bullets */}
+                        <div className="space-y-2.5 mb-6 flex-grow">
+                          {pillar.benefits.map((benefit, idx) => (
+                            <div key={idx} className="flex items-center gap-2.5">
+                              <div className="w-1.5 h-1.5 rounded-full bg-white/60 shrink-0" />
+                              <span className="text-sm opacity-85">{benefit}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Button */}
+                        <Button 
+                          className={`
+                            ${pillar.id === "center" 
+                              ? "bg-white/20 hover:bg-white/30 text-white border border-white/30" 
+                              : "bg-white/15 hover:bg-white/25 text-white/90 border border-white/20"
+                            }
+                            w-full rounded-xl font-medium transition-colors
+                          `}
+                          variant="outline"
+                        >
+                          Explore
+                        </Button>
+
+                        {/* Visual Mockup Area - Bottom */}
+                        <div className="mt-6 pt-4 border-t border-white/15 flex items-center justify-center">
+                          <div className="text-4xl opacity-70">{pillar.visualMockup}</div>
+                        </div>
                       </div>
                     </motion.div>
                   </motion.div>
                 )
               })}
             </div>
-
-            <motion.div 
-              className="absolute bottom-0 left-1/2 -translate-x-1/2 flex justify-center gap-3"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-            >
-              {pillars.map((_, index) => (
-                <motion.button
-                  key={index}
-                  onClick={() => handleCardClick(index)}
-                  className={`rounded-full transition-all ${
-                    index === activeIndex
-                      ? "bg-primary/80 w-3 h-3 shadow-lg shadow-primary/50"
-                      : "bg-muted-foreground/20 w-2 h-2 hover:bg-muted-foreground/40"
-                  }`}
-                  whileHover={{ scale: 1.2 }}
-                  aria-label={`Go to pillar ${index + 1}`}
-                />
-              ))}
-            </motion.div>
           </motion.div>
         </div>
       </div>

@@ -7,7 +7,7 @@ import { ForWhomSection } from "@/components/landing/for-whom"
 import { HowToStartJourney } from "@/components/landing/how-to-start"
 import { SocialProof } from "@/components/landing/social-proof"
 import { AIPostureEvaluation } from "@/components/landing/ai-posture-evaluation"
-import { EcosystemOverview } from "@/components/landing/ecosystem-overview"
+import { EcosystemOverviewSection } from "@/components/landing/ecosystem-overview"
 import { ServicesOverview } from "@/components/landing/services-overview"
 import { HowItWorks } from "@/components/landing/how-it-works"
 import { PlatformPreview } from "@/components/landing/platform-preview"
@@ -29,7 +29,7 @@ export default function Home() {
       <HowToStartJourney />
       <SocialProof />
       <AIPostureEvaluation />
-      <EcosystemOverview />
+      <EcosystemOverviewSection />
       <ServicesOverview />
       <HowItWorks />
       <PlatformPreview />
