@@ -72,9 +72,7 @@ export function EcosystemOverview() {
       4: "col-start-3 row-start-2",
     }
     return positions[index]
-  }
-
-  return (
+  }  return (
     <section id="despre" className="py-20 lg:py-28 bg-muted/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -125,58 +123,108 @@ export function EcosystemOverview() {
             </div>
           </motion.div>
 
-          {/* Right - Grid Cards Layout */}
+          {/* Right - Premium Layered Card Showcase */}
           <motion.div 
-            className="relative"
+            className="relative h-96 flex items-center justify-center perspective"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <div className="grid grid-cols-3 gap-4 max-w-2xl">
+            {/* Background atmospheric subtle gradient */}
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/5 via-transparent to-chart-2/5 blur-2xl pointer-events-none" />
+
+            {/* Card Stack Container */}
+            <div className="relative w-full max-w-2xl h-full">
               {pillars.map((pillar, index) => {
                 const isActive = index === activeIndex
+                const isLeft = index < activeIndex
+                const isRight = index > activeIndex
+                
+                // Calculate offset and z-index for layered effect
+                const offsetX = isLeft ? -120 : isRight ? 120 : 0
+                const offsetY = isLeft || isRight ? 40 : 0
+                const zIndex = isActive ? 30 : isLeft || isRight ? 10 : 5
+                const scale = isActive ? 1 : 0.85
+                const opacity = isActive ? 1 : 0.4
 
                 return (
                   <motion.div
                     key={index}
-                    className={`${getGridPosition(index)} cursor-pointer`}
+                    className="absolute inset-0 flex items-center justify-center cursor-pointer"
                     onClick={() => handleCardClick(index)}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
+                    animate={{
+                      x: offsetX,
+                      y: offsetY,
+                      zIndex: zIndex,
+                      scale: scale,
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 120,
+                      damping: 20,
+                      duration: 0.4,
+                    }}
                   >
                     <motion.div
-                      animate={{ scale: isActive ? 1.05 : 1 }}
-                      transition={{ type: "spring", stiffness: 100, damping: 15 }}
-                    >
-                      <div
-                        className={`rounded-2xl p-6 text-center transition-all duration-300 h-full flex flex-col items-center justify-center ${
+                      className={`
+                        relative w-80 rounded-3xl p-8 
+                        transition-all duration-300 backdrop-blur-sm
+                        ${
                           isActive
-                            ? `${pillar.color} ${pillar.textColor} shadow-2xl scale-105`
-                            : "bg-card border border-border text-foreground shadow-md hover:shadow-lg hover:scale-105"
-                        }`}
-                      >
-                        <div
-                          className={`w-14 h-14 rounded-lg flex items-center justify-center mb-4 ${
-                            isActive ? "bg-white/20" : "bg-muted"
+                            ? `${pillar.color} ${pillar.textColor} shadow-2xl border border-white/20`
+                            : `bg-card/60 border border-border/50 text-foreground/50 backdrop-blur-md blur-sm`
+                        }
+                      `}
+                      style={{
+                        opacity: opacity,
+                      }}
+                    >
+                      {/* Gradient overlay for active card */}
+                      {isActive && (
+                        <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/10 via-transparent to-black/10 pointer-events-none" />
+                      )}
+
+                      {/* Content */}
+                      <div className="relative z-10 flex flex-col items-center text-center">
+                        <motion.div
+                          className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${
+                            isActive 
+                              ? "bg-white/20 shadow-lg" 
+                              : "bg-muted/30"
+                          }`}
+                          animate={{ scale: isActive ? 1 : 0.8 }}
+                        >
+                          <pillar.icon 
+                            className={`w-8 h-8 ${
+                              isActive 
+                                ? pillar.textColor 
+                                : "text-foreground/40"
+                            }`} 
+                          />
+                        </motion.div>
+
+                        <h3 
+                          className={`font-bold text-xl mb-3 transition-colors ${
+                            isActive 
+                              ? pillar.textColor 
+                              : "text-foreground/50"
                           }`}
                         >
-                          <pillar.icon className={`w-7 h-7 ${isActive ? pillar.textColor : "text-foreground"}`} />
-                        </div>
-                        <h3 className={`font-semibold text-base mb-2 ${isActive ? pillar.textColor : "text-foreground"}`}>
                           {pillar.title}
                         </h3>
+
                         {isActive && (
-                          <motion.p
+                          <motion.div
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="text-sm leading-relaxed"
+                            transition={{ duration: 0.3 }}
                           >
-                            {pillar.description}
-                          </motion.p>
+                            <p className={`text-sm leading-relaxed ${pillar.textColor} opacity-90`}>
+                              {pillar.description}
+                            </p>
+                          </motion.div>
                         )}
                       </div>
                     </motion.div>
@@ -185,37 +233,28 @@ export function EcosystemOverview() {
               })}
             </div>
 
-            {/* Navigation Dots */}
-            <div className="flex justify-center gap-2 mt-8">
+            {/* Premium Navigation Dots */}
+            <motion.div 
+              className="absolute bottom-0 left-1/2 -translate-x-1/2 flex justify-center gap-3"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+            >
               {pillars.map((_, index) => (
-                <button
+                <motion.button
                   key={index}
                   onClick={() => handleCardClick(index)}
-                  className={`w-2 h-2 rounded-full transition-all ${
+                  className={`rounded-full transition-all ${
                     index === activeIndex
-                      ? "bg-primary w-6"
-                      : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                      ? "bg-primary/80 w-3 h-3 shadow-lg shadow-primary/50"
+                      : "bg-muted-foreground/20 w-2 h-2 hover:bg-muted-foreground/40"
                   }`}
+                  whileHover={{ scale: 1.2 }}
                   aria-label={`Go to pillar ${index + 1}`}
                 />
               ))}
-            </div>
-
-            {/* Resume auto-play button hint */}
-            {!autoPlay && (
-              <motion.div
-                className="text-center mt-4"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-              >
-                <button
-                  onClick={() => setAutoPlay(true)}
-                  className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Click to resume auto-play
-                </button>
-              </motion.div>
-            )}
+            </motion.div>
           </motion.div>
         </div>
       </div>
