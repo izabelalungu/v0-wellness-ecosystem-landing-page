@@ -43,10 +43,9 @@ const pillars = [
 ]
 
 export function EcosystemOverview() {
-  const [activeIndex, setActiveIndex] = useState(2) // Center card starts active
+  const [activeIndex, setActiveIndex] = useState(2)
   const [autoPlay, setAutoPlay] = useState(true)
 
-  // Auto-rotate every 3 seconds
   useEffect(() => {
     if (!autoPlay) return
 
@@ -62,17 +61,7 @@ export function EcosystemOverview() {
     setAutoPlay(false)
   }
 
-  // Calculate grid positions: 2 left, center, 2 right
-  const getGridPosition = (index: number) => {
-    const positions: Record<number, string> = {
-      0: "col-start-1 row-start-1",
-      1: "col-start-1 row-start-2",
-      2: "col-start-2 row-start-1 row-span-2",
-      3: "col-start-3 row-start-1",
-      4: "col-start-3 row-start-2",
-    }
-    return positions[index]
-  }  return (
+  return (
     <section id="despre" className="py-20 lg:py-28 bg-muted/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -125,23 +114,20 @@ export function EcosystemOverview() {
 
           {/* Right - Premium Layered Card Showcase */}
           <motion.div 
-            className="relative h-96 flex items-center justify-center perspective"
+            className="relative h-96 flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            {/* Background atmospheric subtle gradient */}
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/5 via-transparent to-chart-2/5 blur-2xl pointer-events-none" />
 
-            {/* Card Stack Container */}
             <div className="relative w-full max-w-2xl h-full">
               {pillars.map((pillar, index) => {
                 const isActive = index === activeIndex
                 const isLeft = index < activeIndex
                 const isRight = index > activeIndex
                 
-                // Calculate offset and z-index for layered effect
                 const offsetX = isLeft ? -120 : isRight ? 120 : 0
                 const offsetY = isLeft || isRight ? 40 : 0
                 const zIndex = isActive ? 30 : isLeft || isRight ? 10 : 5
@@ -176,39 +162,27 @@ export function EcosystemOverview() {
                             : `bg-card/60 border border-border/50 text-foreground/50 backdrop-blur-md blur-sm`
                         }
                       `}
-                      style={{
-                        opacity: opacity,
-                      }}
+                      style={{ opacity: opacity }}
                     >
-                      {/* Gradient overlay for active card */}
                       {isActive && (
                         <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/10 via-transparent to-black/10 pointer-events-none" />
                       )}
 
-                      {/* Content */}
                       <div className="relative z-10 flex flex-col items-center text-center">
                         <motion.div
                           className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${
-                            isActive 
-                              ? "bg-white/20 shadow-lg" 
-                              : "bg-muted/30"
+                            isActive ? "bg-white/20 shadow-lg" : "bg-muted/30"
                           }`}
                           animate={{ scale: isActive ? 1 : 0.8 }}
                         >
                           <pillar.icon 
-                            className={`w-8 h-8 ${
-                              isActive 
-                                ? pillar.textColor 
-                                : "text-foreground/40"
-                            }`} 
+                            className={`w-8 h-8 ${isActive ? pillar.textColor : "text-foreground/40"}`} 
                           />
                         </motion.div>
 
                         <h3 
                           className={`font-bold text-xl mb-3 transition-colors ${
-                            isActive 
-                              ? pillar.textColor 
-                              : "text-foreground/50"
+                            isActive ? pillar.textColor : "text-foreground/50"
                           }`}
                         >
                           {pillar.title}
@@ -233,7 +207,6 @@ export function EcosystemOverview() {
               })}
             </div>
 
-            {/* Premium Navigation Dots */}
             <motion.div 
               className="absolute bottom-0 left-1/2 -translate-x-1/2 flex justify-center gap-3"
               initial={{ opacity: 0, y: 10 }}
@@ -261,4 +234,3 @@ export function EcosystemOverview() {
     </section>
   )
 }
-
