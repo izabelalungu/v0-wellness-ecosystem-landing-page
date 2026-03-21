@@ -1,12 +1,12 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { useState, useRef } from "react"
+import { motion, AnimatePresence, useMotionValue, useTransform, PanInfo } from "framer-motion"
 import { Dumbbell, Activity, UtensilsCrossed, Monitor, Smartphone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const pillars = [
   {
-    id: "far-left",
     icon: Dumbbell,
     title: "Gym",
     subtitle: "Antrenament",
@@ -14,10 +14,8 @@ const pillars = [
     benefits: ["Programe adaptate", "Tehnică impecabilă", "Progres măsurabil"],
     color: "bg-primary",
     textColor: "text-primary-foreground",
-    visualMockup: "🏋️",
   },
   {
-    id: "left",
     icon: Activity,
     title: "Recuperare",
     subtitle: "Terapie",
@@ -25,10 +23,8 @@ const pillars = [
     benefits: ["Dureri eliminate", "Mobilitate crescută", "Recuperare rapidă"],
     color: "bg-chart-2",
     textColor: "text-white",
-    visualMockup: "💆",
   },
   {
-    id: "center",
     icon: UtensilsCrossed,
     title: "Nutriție",
     subtitle: "Program",
@@ -36,10 +32,8 @@ const pillars = [
     benefits: ["Macronutrienți calibrați", "Mese zilnice", "Program integrat"],
     color: "bg-chart-3",
     textColor: "text-white",
-    visualMockup: "🥗",
   },
   {
-    id: "right",
     icon: Monitor,
     title: "Platformă",
     subtitle: "Digital",
@@ -47,10 +41,8 @@ const pillars = [
     benefits: ["Progres în timp real", "Date concrete", "Dashboard complet"],
     color: "bg-primary",
     textColor: "text-primary-foreground",
-    visualMockup: "📊",
   },
   {
-    id: "far-right",
     icon: Smartphone,
     title: "App Mobile",
     subtitle: "Acces",
@@ -58,57 +50,102 @@ const pillars = [
     benefits: ["Disponibil 24/7", "Sincronizare automată", "Notificări smart"],
     color: "bg-chart-2",
     textColor: "text-white",
-    visualMockup: "📱",
   },
 ]
 
-// Position mapping for the 5-card stacked triangular composition
-const positionConfig = {
-  "far-left": {
-    translateX: -280,
-    translateY: 60,
-    scale: 0.75,
-    opacity: 0.35,
-    zIndex: 5,
-    blur: 8,
+// Visual position configurations for the 5-card triangular composition
+const positionConfigs = [
+  { // far-left
+    translateX: -260,
+    translateY: 50,
+    scale: 0.72,
+    opacity: 0.3,
+    zIndex: 1,
   },
-  "left": {
-    translateX: -140,
-    translateY: 20,
-    scale: 0.88,
-    opacity: 0.65,
-    zIndex: 15,
-    blur: 4,
+  { // left
+    translateX: -130,
+    translateY: 15,
+    scale: 0.85,
+    opacity: 0.6,
+    zIndex: 2,
   },
-  "center": {
+  { // center
     translateX: 0,
     translateY: 0,
     scale: 1,
     opacity: 1,
-    zIndex: 50,
-    blur: 0,
+    zIndex: 3,
   },
-  "right": {
-    translateX: 140,
-    translateY: 20,
-    scale: 0.88,
-    opacity: 0.65,
-    zIndex: 15,
-    blur: 4,
+  { // right
+    translateX: 130,
+    translateY: 15,
+    scale: 0.85,
+    opacity: 0.6,
+    zIndex: 2,
   },
-  "far-right": {
-    translateX: 280,
-    translateY: 60,
-    scale: 0.75,
-    opacity: 0.35,
-    zIndex: 5,
-    blur: 8,
+  { // far-right
+    translateX: 260,
+    translateY: 50,
+    scale: 0.72,
+    opacity: 0.3,
+    zIndex: 1,
   },
-}
+]
 
 export function EcosystemOverviewSection() {
+  // Rotation state: tracks which pillar index is currently in the center position
+  const [centerIndex, setCenterIndex] = useState(2) // Start with Nutriție (index 2) in center
+  const containerRef = useRef<HTMLDivElement>(null)
+  const dragX = useMotionValue(0)
+
+  // Calculate visual position for each pillar based on current rotation
+  const getVisualPosition = (pillarIndex: number): number => {
+    // Calculate offset from center
+    const offset = pillarIndex - centerIndex
+    // Wrap around for circular behavior: -2, -1, 0, 1, 2 maps to positions 0-4
+    let visualPos = offset
+    if (visualPos > 2) visualPos -= 5
+    if (visualPos < -2) visualPos += 5
+    // Map to 0-4 (far-left=0, left=1, center=2, right=3, far-right=4)
+    return visualPos + 2
+  }
+
+  // Rotate carousel forward (next card comes to center)
+  const rotateForward = () => {
+    setCenterIndex((prev) => (prev + 1) % 5)
+  }
+
+  // Rotate carousel backward (previous card comes to center)
+  const rotateBackward = () => {
+    setCenterIndex((prev) => (prev - 1 + 5) % 5)
+  }
+
+  // Handle click/tap on carousel area
+  const handleCarouselClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return
+    const rect = containerRef.current.getBoundingClientRect()
+    const clickX = e.clientX - rect.left
+    const midpoint = rect.width / 2
+
+    if (clickX > midpoint) {
+      rotateForward()
+    } else {
+      rotateBackward()
+    }
+  }
+
+  // Handle drag/swipe end
+  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const threshold = 50 // minimum drag distance to trigger rotation
+    if (info.offset.x < -threshold) {
+      rotateForward() // swipe left = forward
+    } else if (info.offset.x > threshold) {
+      rotateBackward() // swipe right = backward
+    }
+  }
+
   return (
-    <section id="despre" className="py-20 lg:py-28 bg-muted/20">
+    <section id="despre" className="py-20 lg:py-28 bg-muted/20 relative" style={{ isolation: "isolate" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left - Content */}
@@ -158,116 +195,114 @@ export function EcosystemOverviewSection() {
             </div>
           </motion.div>
 
-          {/* Right - Premium 5-Card Stacked Triangular Composition */}
-          <motion.div 
-            className="relative h-[500px] flex items-center justify-center"
+          {/* Right - 5-Card Circular Stacked Carousel */}
+          <motion.div
+            ref={containerRef}
+            className="relative h-[480px] flex items-center justify-center cursor-grab active:cursor-grabbing select-none"
+            style={{ isolation: "isolate" }}
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
+            onClick={handleCarouselClick}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.1}
+            onDragEnd={handleDragEnd}
           >
             {/* Atmospheric background gradient */}
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/8 via-transparent to-chart-2/8 blur-3xl pointer-events-none" />
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/5 via-transparent to-chart-2/5 blur-2xl pointer-events-none" />
 
-            {/* 5-Card Container - Absolute positioning for stacked composition */}
-            <div className="relative w-full h-full max-w-4xl">
-              {pillars.map((pillar, index) => {
-                const config = positionConfig[pillar.id as keyof typeof positionConfig]
+            {/* 5-Card Container */}
+            <div className="relative w-full h-full pointer-events-none" style={{ perspective: "1000px" }}>
+              <AnimatePresence mode="sync">
+                {pillars.map((pillar, index) => {
+                  const visualPos = getVisualPosition(index)
+                  const config = positionConfigs[visualPos]
+                  const isCenter = visualPos === 2
 
-                return (
-                  <motion.div
-                    key={pillar.id}
-                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ 
-                      opacity: config.opacity, 
-                      scale: config.scale,
-                    }}
-                    viewport={{ once: true }}
-                    transition={{ 
-                      delay: index * 0.1,
-                      duration: 0.6,
-                      type: "spring",
-                      stiffness: 100,
-                      damping: 25,
-                    }}
-                    style={{
-                      zIndex: config.zIndex,
-                      filter: `blur(${config.blur}px)`,
-                    }}
-                  >
+                  return (
                     <motion.div
-                      className={`
-                        relative w-80 rounded-3xl overflow-hidden
-                        ${pillar.color} ${pillar.textColor}
-                        shadow-2xl border border-white/10
-                        transition-all duration-300
-                      `}
+                      key={index}
+                      className="absolute left-1/2 top-1/2"
+                      initial={false}
                       animate={{
-                        x: config.translateX,
-                        y: config.translateY,
+                        x: config.translateX - 160, // offset for card width centering
+                        y: config.translateY - 200, // offset for card height centering
+                        scale: config.scale,
+                        opacity: config.opacity,
+                        zIndex: config.zIndex,
                       }}
                       transition={{
                         type: "spring",
-                        stiffness: 100,
-                        damping: 25,
+                        stiffness: 200,
+                        damping: 30,
+                        mass: 0.8,
                       }}
                     >
-                      {/* Gradient overlay for premium feel */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 pointer-events-none" />
+                      <div
+                        className={`
+                          relative w-80 rounded-3xl overflow-hidden
+                          ${pillar.color} ${pillar.textColor}
+                          shadow-2xl border border-white/10
+                          ${!isCenter ? "blur-[1px]" : ""}
+                        `}
+                      >
+                        {/* Gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 pointer-events-none" />
 
-                      {/* Card Content */}
-                      <div className="relative z-10 flex flex-col h-full p-8">
-                        {/* Ribbon/Eyebrow Label */}
-                        <div className="inline-flex items-center gap-2 mb-3 w-fit px-3 py-1 rounded-full bg-white/15 border border-white/20">
-                          <span className="text-xs font-semibold uppercase tracking-wide opacity-90">
-                            {pillar.subtitle}
-                          </span>
-                        </div>
+                        {/* Card Content */}
+                        <div className="relative z-10 flex flex-col h-full p-8">
+                          {/* Ribbon Label */}
+                          <div className="inline-flex items-center gap-2 mb-3 w-fit px-3 py-1 rounded-full bg-white/15 border border-white/20">
+                            <span className="text-xs font-semibold uppercase tracking-wide opacity-90">
+                              {pillar.subtitle}
+                            </span>
+                          </div>
 
-                        {/* Headline */}
-                        <h3 className="text-2xl lg:text-3xl font-bold mb-2 leading-tight">
-                          {pillar.title}
-                        </h3>
+                          {/* Icon */}
+                          <div className="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center mb-4">
+                            <pillar.icon className="w-6 h-6" />
+                          </div>
 
-                        {/* Description */}
-                        <p className="text-sm leading-relaxed opacity-90 mb-4">
-                          {pillar.description}
-                        </p>
+                          {/* Headline */}
+                          <h3 className="text-2xl lg:text-3xl font-bold mb-2 leading-tight">
+                            {pillar.title}
+                          </h3>
 
-                        {/* Benefits/Bullets */}
-                        <div className="space-y-2.5 mb-6 flex-grow">
-                          {pillar.benefits.map((benefit, idx) => (
-                            <div key={idx} className="flex items-center gap-2.5">
-                              <div className="w-1.5 h-1.5 rounded-full bg-white/60 shrink-0" />
-                              <span className="text-sm opacity-85">{benefit}</span>
-                            </div>
-                          ))}
-                        </div>
+                          {/* Description */}
+                          <p className="text-sm leading-relaxed opacity-90 mb-4">
+                            {pillar.description}
+                          </p>
 
-                        {/* Button */}
-                        <Button 
-                          className={`
-                            ${pillar.id === "center" 
-                              ? "bg-white/20 hover:bg-white/30 text-white border border-white/30" 
-                              : "bg-white/15 hover:bg-white/25 text-white/90 border border-white/20"
-                            }
-                            w-full rounded-xl font-medium transition-colors
-                          `}
-                          variant="outline"
-                        >
-                          Explore
-                        </Button>
+                          {/* Benefits */}
+                          <div className="space-y-2 mb-6 flex-grow">
+                            {pillar.benefits.map((benefit, idx) => (
+                              <div key={idx} className="flex items-center gap-2.5">
+                                <div className="w-1.5 h-1.5 rounded-full bg-white/60 shrink-0" />
+                                <span className="text-sm opacity-85">{benefit}</span>
+                              </div>
+                            ))}
+                          </div>
 
-                        {/* Visual Mockup Area - Bottom */}
-                        <div className="mt-6 pt-4 border-t border-white/15 flex items-center justify-center">
-                          <div className="text-4xl opacity-70">{pillar.visualMockup}</div>
+                          {/* CTA Button */}
+                          <Button 
+                            className="bg-white/20 hover:bg-white/30 text-white border border-white/30 w-full rounded-xl font-medium"
+                            variant="outline"
+                          >
+                            Descoperă
+                          </Button>
                         </div>
                       </div>
                     </motion.div>
-                  </motion.div>
-                )
-              })}
+                  )
+                })}
+              </AnimatePresence>
+            </div>
+
+            {/* Subtle hint for interaction */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-muted-foreground/50">
+              Click sau swipe pentru a naviga
             </div>
           </motion.div>
         </div>
